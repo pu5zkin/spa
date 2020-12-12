@@ -17,4 +17,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag docker.pkg.github.com/pu5zkin/spa/spa:1.0
     - name: Push the Docker image to registry
-      run: docker push ocker.pkg.github.com/pu5zkin/spa/spa:1.0
+      run: docker push docker.pkg.github.com/pu5zkin/spa/spa:1.0
