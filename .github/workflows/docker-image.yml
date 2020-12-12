@@ -1,0 +1,17 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+
+jobs:
+
+  build:
+
+    runs-on: centos-7
+
+    steps:
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag spa:$(date +%s)
