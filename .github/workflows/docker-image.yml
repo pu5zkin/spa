@@ -14,4 +14,5 @@ jobs:
 
     steps:
     - name: Build the Docker image
-      run: docker build . --file ./Dockerfile --tag spa:$(date +%s)
+    - uses: actions/checkout@v2
+      run: docker build . --file Dockerfile --tag spa:$(date +%s)
