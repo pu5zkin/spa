@@ -12,5 +12,5 @@ service 'docker' do
 end
   
 execute 'run docker image' do
-    command 'docker run --rm -d -p 4200:4200/tcp ghcr.io/pu5zkin/spa/spa:latest'
+    command 'docker run --rm -d -p 80:80/tcp ghcr.io/pu5zkin/spa/spa:latest'
 end
