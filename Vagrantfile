@@ -7,6 +7,12 @@
 # you're doing.
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
+  config.vm.provider "libvirt" do |l|
+    l.memory = 2048
+  end
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+  end
   # Automation where we using Ansible
   #config.vm.provision "ansible_local" do |ansible|
   #  ansible.playbook = "playbook.yml"
@@ -18,5 +24,5 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "dockerHost"
     chef.arguments = "--chef-license accept"
   end
-  config.vm.network "forwarded_port", guest: 4200, host: 8080
+  config.vm.network "forwarded_port", guest: 4200, host: 8080, host_ip: "127.0.0.1"
 end

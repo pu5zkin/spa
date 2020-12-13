@@ -7,13 +7,37 @@ on:
     branches: [ development ]
 
 jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node 15.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '15.x'
+      - run: npm install
+      - run: ng lint
+  
+  unit:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node 15.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '15.x'
+      - name: Install chromium for test
+        run: apk add chromium && export CHROME_BIN='/usr/bin/chromium-browser'
+      - run: npm install
+      - run: ng test --watch=false
 
   build:
-  
     runs-on: ubuntu-20.04
-
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ghcr.io/pu5zkin/spa/spa:latest
     - name: Login to Docker registry

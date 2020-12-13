@@ -1,4 +1,4 @@
-FROM node:15.3.0-alpine3.10
+FROM node:15.3.0-alpine3.10 as dupa
 
 RUN mkdir -p /opt/spa
 WORKDIR  /opt/spa
