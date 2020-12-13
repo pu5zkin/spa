@@ -15,6 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker.pkg.github.com/pu5zkin/spa/spa:1.0
+      run: docker build . --file Dockerfile --tag ghcr.io/pu5zkin/spa/spa:$GITHUB_SHA
+    - name: Login to Docker registry
+      run: echo ${{ secrets.TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
     - name: Push the Docker image to registry
-      run: docker push docker.pkg.github.com/pu5zkin/spa/spa:1.0
+      run: docker push ghcr.io/pu5zkin/spa/spa:$GITHUB_SHA
+
