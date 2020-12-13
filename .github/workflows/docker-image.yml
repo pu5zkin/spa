@@ -28,15 +28,28 @@ jobs:
       run: ng test --watch=false
     - name: build app
       run: ng build --output-path=dist --prod
+    - name: Gather results and transfer for next stage
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Hello-spa
+        path: dist
 
-#  deploy:
-#
-#    runs-on: ubuntu-20.04
-#    needs: build
-#    steps:
-#    - name: Checkout
-#      uses: actions/checkout@v2
-#    - name: Download build app
-#      uses: actions/download-artifact@v2
-#    - name: Deploy
+  deploy:
+
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Download build app
+      uses: actions/download-artifact@v2
+      with:
+        name: Hello-spa
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ghcr.io/pu5zkin/spa/spa:latest
+    - name: Login to Docker registry
+      run: docker login ghcr.io -u $GITHUB_ACTOR -p ${{ secrets.TOKEN }}
+    - name: Push the Docker image to registry
+      run: docker push ghcr.io/pu5zkin/spa/spa:latest
 
