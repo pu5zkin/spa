@@ -22,6 +22,24 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## [**pu5zkin changed**] Running integration tests
+
+Run `vagrant up` to execute the integration tests via Chef recipe or Ansible playbook on predefined environment. After configuration ended, please check application via browser on [http://127.0.0.1:8080](http://127.0.0.1:8080)
+
+More details about changes in this fork is in [CHANGELOG.md](CHANGELOG.md) file
+
+## [**pu5zkin changed**] Changes...
+
+After change the code, please tag you commit to start new CI/CD process. More details in [.github/workflows/docker-image.yml](.github/workflows/docker-image.yml)
+
+Example:
+
+```
+git tag -a v1.0.2
+git push origin v1.0.2
+
+```
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
