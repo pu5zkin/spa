@@ -1,0 +1,57 @@
+name: Hello-spa CI/CD pipeline
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Use Node 15.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
+    - name: Install depedencies
+      run: npm install
+    - name: Install Angular CLI 9.1.0
+      run: npm install -g @angular/cli@9.1.0
+    - name: Lint
+      run: ng lint
+    - name: Unit
+      run: ng test --watch=false
+    - name: E2E
+      run: ng e2e
+    - name: Build app
+      run: ng build --output-path=dist --prod
+    - name: Gather results and transfer for next stage
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Hello-spa
+        path: dist
+
+  deploy:
+
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Download build app
+      uses: actions/download-artifact@v2
+      with:
+        name: Hello-spa
+        path: dist
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ghcr.io/pu5zkin/spa/spa:latest
+    - name: Login to Docker registry
+      run: docker login ghcr.io -u $GITHUB_ACTOR -p ${{ secrets.TOKEN }}
+    - name: Push the Docker image to registry
+      run: docker push ghcr.io/pu5zkin/spa/spa:latest
+

@@ -1,0 +1,19 @@
+- hosts: all
+  tasks:
+    - name: Install docker
+      become: yes
+      become_user: root
+      yum:
+        name: docker
+        state: present
+    - name: Start docker
+      become: yes
+      become_user: root
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: Start a container
+      become: yes
+      become_user: root
+      shell: 'docker run --rm -d -p 80:80/tcp ghcr.io/pu5zkin/spa/spa:latest'

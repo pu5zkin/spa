@@ -1,0 +1,22 @@
+---
+driver:
+  name: vagrant
+  provider: libvirt
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos/7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[dockerHost::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
