@@ -22,10 +22,6 @@ jobs:
       run: npm install
     - name: Install Angular CLI 9.1.0
       run: npm install -g @angular/cli@9.1.0
-    - name: Install Chromium for unit tests
-      run: sudo apt install chromium
-    - name: Export CHROME_BIN variable in local env  
-      run: export CHROME_BIN='/usr/bin/chromium-browser'
     - name: Lint
       run: ng lint
     - name: Unit
