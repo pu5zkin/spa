@@ -18,4 +18,5 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "dockerHost"
     chef.arguments = "--chef-license accept"
   end
+  config.vm.network "forwarded_port", guest: 4200, host: 8080
 end
