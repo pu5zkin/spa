@@ -6,7 +6,7 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/focal64"
+  config.vm.box = "centos/7"
   # Automation where we using Ansible
   #config.vm.provision "ansible_local" do |ansible|
   #  ansible.playbook = "playbook.yml"
