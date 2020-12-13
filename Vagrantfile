@@ -7,15 +7,9 @@
 # you're doing.
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
-  config.vm.provider "libvirt" do |l|
-    l.memory = 2048
-  end
-  config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
-  end
   # Automation where we using Ansible
   #config.vm.provision "ansible_local" do |ansible|
-  #  ansible.playbook = "playbook.yml"
+  #  ansible.playbook = "integration/vagrant-ansible/dockerHost_playbook.yml"
   #end
   # Automation where we using Chef
   config.vm.provision "chef_zero" do |chef|
